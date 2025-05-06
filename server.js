@@ -58,8 +58,16 @@ app.get('/', (req, res) => {
   res.render('home', { restaurant: RESTAURANT });
 });
 
+
 app.get('/menu', (req, res) => {
   res.render('menu', { menu: RESTAURANT.menu });
+});
+
+app.get('/menu/:category', (req, res) => {
+  const category = req.params.category;
+  const menuItems = RESTAURANT.menu.filter(item => item.category === category);
+  const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+  res.render('category', { menuItems, categoryName });
 });
 
 
